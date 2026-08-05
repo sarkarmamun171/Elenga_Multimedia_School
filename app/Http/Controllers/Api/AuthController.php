@@ -27,7 +27,7 @@ class AuthController extends Controller
                 'user' => $user,
         ],201);
     }
-
+//Login Check
     public function login(Request $request)
     {
         $request->validate([
@@ -53,4 +53,21 @@ class AuthController extends Controller
             'user' => $user,
         ], 200);
     }
+
+
+    //Profile and Logout Section
+    public function profile(Request $request){
+        return response()->json([
+            'user'=>$request->user()
+        ],200);
+    }
+
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message'=>'Logout Seccessful'
+        ],201);
+    }
+
 }
